@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>New York CZ/SK RP</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0; padding: 0; height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0d0d0d;
+      color: #f2f2f2;
+      overflow-x: hidden;
+    }
+
+    /* Pozadí full screen s obrázkem a překryvem */
+    #intro {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('https://images.unsplash.com/photo-1579370318444-cb1db7cdd9b4?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+      filter: brightness(0.4);
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    #intro .overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 11;
+    }
+
+    #intro .content {
+      position: relative;
+      z-index: 12;
+      text-align: center;
+    }
+
+    #intro h1 {
+      font-size: 4em;
+      margin-bottom: 0.5em;
+      color: #2ecc71;
+      text-shadow: 0 0 20px #2ecc71;
+    }
+
+    #intro button {
+      background-color: #2ecc71;
+      border: none;
+      padding: 18px 60px;
+      font-size: 1.8em;
+      margin: 15px;
+      font-weight: bold;
+      color: #0d0d0d;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(46,204,113,0.7);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    #intro button:hover {
+      background-color: #27ae60;
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(39,174,96,0.9);
+    }
+
+    /* Obsah hlavní stránky - skrytý do startu */
+    #main-content {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1s ease;
+      max-width: 1000px;
+      margin: 100px auto 60px;
+      padding: 30px;
+      background-color: rgba(15,15,15,0.85);
+      border-radius: 14px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.9);
+      color: #f2f2f2;
+      position: relative;
+    }
+
+    #main-content.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    h2, h3 {
+      color: #2ecc71;
+    }
+
+    ul {
+      padding-left: 25px;
+      margin-bottom: 30px;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #111;
+      border-top: 2px solid #2ecc71;
+      color: #f2f2f2;
+      max-width: 1000px;
+      margin: 40px auto 60px;
+      border-radius: 0 0 14px 14px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.7);
+    }
+
+    a {
+      color: #2ecc71;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Tlačítko zpět */
+    #back-btn {
+      position: fixed;
+      top: 25px;
+      left: 25px;
+      background-color: #2ecc71;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #0d0d0d;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(46,204,113,0.7);
+      z-index: 1001;
+      display: none;
+      transition: background-color 0.3s ease;
+    }
+
+    #back-btn:hover {
+      background-color: #27ae60;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="intro">
+    <div class="overlay"></div>
+    <div class="content">
+      <h1>New York CZ/SK RP</h1>
+      <button data-section="pravidla">Pravidla</button>
+      <button data-section="kontakt">Kontakt</button>
+    </div>
+  </div>
+
+  <button id="back-btn">← Zpět</button>
+
+  <div id="main-content">
+    <section id="pravidla">
+      <h2>📜 Pravidla serveru</h2>
+      <h3>1. Obecná pravidla RP</h3>
+      <ul>
+        <li>Každý hráč hraje realisticky za svou postavu (RP).</li>
+        <li>Používej reálné jméno ve formátu Jméno Příjmení.</li>
+        <li>Povinná komunikace přes mikrofon v CZ/SK jazyce.</li>
+        <li>Zákaz trollení, porušování RP, toxicita.</li>
+      </ul>
+
+      <h3>2. Příkazy pro RP komunikaci</h3>
+      <ul>
+        <li><strong>/me:</strong> Popis tvé akce. <em>/me vytahuje občanský průkaz z kapsy</em></li>
+        <li><strong>/do:</strong> Popisuje stav nebo okolí. <em>/do muž je celý od krve</em></li>
+        <li><strong>/try:</strong> Akce s nejistým výsledkem. <em>/try rozbíjí zámek – výsledek určuje admin/hráč</em></li>
+      </ul>
+      <p><strong>Poznámka:</strong> Tyto příkazy jsou povinné při každé interakci, kterou nejde popsat hlasem nebo animací.</p>
+
+      <h3>3. Pravidla boje a násilí</h3>
+      <ul>
+        <li><strong>RDM:</strong> Zabíjení bez RP důvodu – zakázáno.</li>
+        <li><strong>VDM:</strong> Najíždění autem bez důvodu – zakázáno.</li>
+        <li><strong>FearRP:</strong> Při ohrožení zbraní musíš jednat se strachem o život.</li>
+        <li><strong>NLR:</strong> Po smrti si na nic nepamatuješ, nesmíš se vrátit.</li>
+        <li><strong>Combat Logging:</strong> Odpojování během RP – zákaz.</li>
+      </ul>
+
+      <h3>4. Chování hráče</h3>
+      <ul>
+        <li><strong>Metagaming:</strong> Používání OOC informací ve hře – zákaz.</li>
+        <li><strong>Powergaming:</strong> Nucení jiných postav k akci bez šance reagovat.</li>
+        <li><strong>FailRP:</strong> Nereálné chování (např. běh se zbraní v ruce u policie).</li>
+        <li><strong>ERP:</strong> Sexuální RP je přísně omezeno a nesmí být detailní.</li>
+        <li><strong>OOC chat:</strong> Používej jen při technických problémech.</li>
+      </ul>
+
+      <h3>5. Job RP a Frakční pravidla</h3>
+      <ul>
+        <li><strong>Job Fear:</strong> Při ohrožení zbraní musíš RPit strach i v zaměstnání (PD, EMS, TAXI, MECH).</li>
+        <li><strong>PD Fear:</strong> Policista není nesmrtelný – při přesile nebo zbrani u hlavy musí se vzdát.</li>
+        <li><strong>EMS Fear:</strong> Zdravotník nesmí vstupovat do přestřelek, jeho prioritou je záchrana života.</li>
+        <li><strong>Zneužití jobu:</strong> Nesmíš využívat pravomoci jobu pro vlastní zisk.</li>
+        <li><strong>Nezávislost:</strong> Zaměstnanci frakcí musí dodržovat přísné RP zásady, nejsou nad zákonem.</li>
+      </ul>
+
+      <h3>6. Kriminalita a gang RP</h3>
+      <ul>
+        <li>Zločiny jen s kvalitním RP (vymyslet plán, odehrát situaci).</li>
+        <li>Loupeže (banka, klenotnictví...) jen se schválením admina.</li>
+        <li>Gang RP je možný, ale musí být reálný a bez trollení.</li>
+        <li>Při zločinu musíš respektovat RP frakcí (policie, EMS...)</li>
+      </ul>
+
+      <h3>7. Ekonomika a majetek</h3>
+      <ul>
+        <li>Žádné sdílení peněz mezi postavami bez RP důvodu.</li>
+        <li>Zákaz bugování systému nebo item duplicity.</li>
+        <li>Prodej účtů nebo majetku za reálné peníze – zákaz!</li>
+      </ul>
+
+      <h3>8. Technická pravidla a admin tým</h3>
+      <ul>
+        <li>Zákaz cheatů, exploitů, modifikací s výhodou.</li>
+        <li>Bugy se hlásí adminům, nesmíš je zneužívat.</li>
+        <li>Admin má vždy poslední slovo.</li>
+        <li>Respektuj admin team – jsou tu pro RP a bezpečí serveru.</li>
+      </ul>
+
+      <h3>9. Sankce a bany</h3>
+      <ul>
+        <li>Porušení pravidel = varování, kick, ban.</li>
+        <li>Hrubé porušení = okamžitý permanentní ban.</li>
+        <li>Odvolání můžeš řešit přes Discord ticket.</li>
+      </ul>
+    </section>
+
+    <section id="kontakt" style="margin-top: 40px;">
+      <h2>📬 Kontakt</h2>
+      <p>📧 Email: <a href="mailto:support@newyorkrp.cz">support@newyorkrp.cz</a></p>
+      <p>💬 Discord: <a href="#">discord.gg/newyorkrp</a></p>
+    </section>
+  </div>
+
+  <footer>
+    &copy; 2025 New York CZ/SK RP | Všechna práva vyhrazena.
+  </footer>
+
+  <script>
+    const intro = document.getElementById('intro');
+    const mainContent = document.getElementById('main-content');
+    const buttons = intro.querySelectorAll('button');
+    const backBtn = document.getElementById('back-btn');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        intro.style.display = 'none';
+        mainContent.classList.add('visible');
+
+        const sectionId = btn.getAttribute('data-section');
+        const targetSection = document.getElementById(sectionId);
+
+        if (targetSection) {
+          targetSection.scrollIntoView({behavior: 'smooth'});
+        }
+
+        backBtn.style.display = 'block';
+      });
+    });
+
+    backBtn.addEventListener('click', () => {
+      mainContent.classList.remove('visible');
+      intro.style.display = 'flex';
+      backBtn.style.display = 'none';
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  </script>
+
+</body>
+</html>
